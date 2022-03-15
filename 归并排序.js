@@ -8,7 +8,7 @@ function process(arr, L, R) {
   process(arr, mid + 1, R)
   merge(arr, L, mid, R)
 }
-
+ 
 function merge(arr, L, mid, R) {
   let i = L
   let j = mid + 1
