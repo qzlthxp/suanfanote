@@ -17,14 +17,13 @@
  * 1 * 2 + 2 * 1 = 4
  */
 
-let counter = 0
-const arr = [1, 3, 4, 2, 5]
+const arr = [1, 1, 2, 1, 2, 3]
 function process(arr, L, R) {
-  if (L == R) return
+  if (L == R) {
+    return 0
+  }
   const mid = L + ((R - L) >> 1)
-  process(arr, L, mid)
-  process(arr, mid + 1, R)
-  merge(arr, L, mid, R)
+  return process(arr, L, mid) + process(arr, mid + 1, R) + merge(arr, L, mid, R)
 }
 
 function merge(arr, L, M, R) {
@@ -32,7 +31,7 @@ function merge(arr, L, M, R) {
   let j = L
   let k = M + 1
   const help = []
-
+  let counter = 0
   while (j <= M && k <= R) {
     if (arr[j] < arr[k]) {
       counter += arr[j] * (R - k + 1)
@@ -53,7 +52,8 @@ function merge(arr, L, M, R) {
   for (i = 0; i < help.length; i++) {
     arr[L + i] = help[i]
   }
+  console.log(counter)
+  return counter
 }
 
-process(arr, 0, arr.length - 1)
-console.log(counter)
+console.log(process(arr, 0, arr.length - 1))
