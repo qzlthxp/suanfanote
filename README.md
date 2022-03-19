@@ -1,2 +1,1 @@
-# suanfanote
-suanfanote
+# note
