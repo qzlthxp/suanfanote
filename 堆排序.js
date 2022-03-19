@@ -2,21 +2,30 @@ const arr = [1, 2, 3, 4, 5, 6, 7]
 
 function heapSort(arr) {
   let heapSize = 0
-  let heapArr = []
 
+  /**
+   * 时间：O(NlogN)
+   *
+   * 建立大根堆
+   */
   for (let i = 0; i < arr.length; i++) {
     heapSize++
-    heapArr.push(arr[i])
-    heapInsert(heapArr, heapSize - 1)
+    heapInsert(arr, i)
   }
 
-  while (heapSize > 0) {
+  /**
+   * 时间：O(NlogN)
+   *
+   * 每次找出最大的放到末尾
+   * 剩余的数继续按照大根堆排 最大放到头
+   */
+  while (heapSize > 1) {
     heapSize--
-    ;[heapArr[0], heapArr[heapSize]] = [heapArr[heapSize], heapArr[0]]
-    heapnify(heapArr, 0, heapSize)
+    ;[arr[0], arr[heapSize]] = [arr[heapSize], arr[0]]
+    heapnify(arr, 0, heapSize)
   }
 
-  console.log(heapSize, heapArr)
+  console.log(arr)
 }
 
 function heapInsert(arr, index) {
