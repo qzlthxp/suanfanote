@@ -1,23 +1,12 @@
-const str = '1223344544332221'
+const arr = [1, 2613, 6, 48, 45, 723, 73, 46, 32, 24, 75, 72, 5]
 
-function test(str) {
-  let mid =
-    str.length % 2 === 0 ? (str.length - 1) >> 1 : ((str.length - 1) >> 1) - 1
-  let top = 0
-  const arr = []
-  while (mid >= 0) {
-    arr.push(str[top++])
-    mid--
-  }
-  mid = ((str.length - 1) >> 1) + 1
+let i = 0
+let j = 0
 
-  for (let j = mid; j < str.length; j++) {
-    if (arr[top - 1] === str[j]) {
-      top--
-    }
-  }
-
-  console.log(top === 0)
+while (j < arr.length - 1) {
+  i++
+  j += 2
+  console.log(j)
 }
 
-test(str)
+console.log(i, j)
