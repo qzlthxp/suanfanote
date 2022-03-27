@@ -121,5 +121,62 @@ function noLoop(headA, headB) {
 
 /**
  * 第三种情况
- * 两个单链表都有环，那么入环节点就是第一个相交节点
+ * 都有环
+ * 看图: 都有环的三种情况
+ * （1）两个链表各自独立
+ * （2）共用一个环，拥有相同的入环节点，也就表明
+ * 第一个相同的节点只可能在入环节点之前或者等于入环节点
+ * （3）共用一个环，但是入环节点不同，这时候两个节点都可以作为第一个相交节点
+ *
+ * 其实（1）和 （3）的思想差不多，我们拿到链表A和链表B
+ * 的入环节点之后，让其中一个继续循环，如果在下次循环到
+ * 原节点之前都没遇到另一个节点的入环节点，那就是第一种
+ * 情况。如果遇到了就是第三种情况
+ *
+ * （2）的思想和无环差不多，根本不要考虑环内是什么样，
+ * 我们只要考虑头结点到入环节点这一段就可以了
  */
+function bothLoop(headA, headB) {
+  let loopA = hasRingPointer(headA)
+  let loopB = hasRingPointer(headB)
+  let curA = headA
+  let curB = headB
+  // (2)
+  if (loopA === loopB) {
+    let n = 0
+    while (curA !== loopA) {
+      n++
+      curA = curA.next
+    }
+    while (curB !== loopB) {
+      n--
+      curB = curB.next
+    }
+    curA = headA
+    curB = headB
+    while (n !== 0) {
+      if (n > 0) {
+        n--
+        curA = curA.next
+      } else {
+        n++
+        curB = curB.next
+      }
+    }
+    while (curA !== curB) {
+      curA = curA.next
+      curB = curB.next
+    }
+    return curA
+  } else {
+    //(1) 、(3)
+    curA = loopA.next
+    while (curA !== loopA) {
+      if (curA === loopB) {
+        return curA
+      }
+      curA = curA.next
+    }
+    return null
+  }
+}
