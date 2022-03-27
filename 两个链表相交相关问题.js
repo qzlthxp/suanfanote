@@ -35,8 +35,8 @@ function hasRingHash(head) {
  */
 function hasRingPointer(head) {
   let headNode = head
-  let slowP = head
-  let firstP = head
+  let slowP = head.next
+  let firstP = head.next.next
 
   while (firstP && firstP.next) {
     if (slowP === firstP) {
