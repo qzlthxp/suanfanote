@@ -34,13 +34,12 @@ function hasRingHash(head) {
  * 最后快慢指针会在入环的第一个节点再次相遇
  */
 function hasRingPointer(head) {
-  let headNode = head
   let slowP = head.next
   let firstP = head.next.next
 
   while (firstP && firstP.next) {
     if (slowP === firstP) {
-      firstP = headNode
+      firstP = head
       break
     }
     slowP = slowP.next
@@ -58,4 +57,59 @@ function hasRingPointer(head) {
     slowP = slowP.next
     firstP = firstP.next
   }
+}
+
+/**
+ * 两个单链表相交，从某个节点开始，
+ * 后面节点都是公共的
+ *
+ * 第一种情况
+ * 两个单链表都是无环结构。每个链表都先遍历一遍
+ * 记录各自长度、尾节点。先判断尾节点一不一样，
+ * 尾节点不一样肯定不相交
+ * 然后长链表先走差值步（长链表长度100，短的80，长的先走20）
+ * 短链表现在跟着一起走，走到相同节点，返回此节点
+ */
+function noLoop(headA, headB) {
+  if (headA === null || headB === null) {
+    return null
+  }
+  let curA = headA
+  let curB = headB
+  let n = 0
+  while (curA.next !== null) {
+    n++
+    curA = curA.next
+  }
+  while (curB.next !== null) {
+    n--
+    curB = curB.next
+  }
+  // 判断尾节点相等
+  if (curA !== curB) {
+    return null
+  }
+
+  // 长链表先走差值步
+  curA = headA
+  curB = headB
+  if (n > 0) {
+    while (n !== 0) {
+      n--
+      curA = curA.next
+    }
+  } else {
+    while (n !== 0) {
+      n++
+      curB = curB.next
+    }
+  }
+
+  // 同时走知道相交，返回相交节点
+  while (curA !== curB) {
+    curA = curA.next
+    curB = curB.next
+  }
+
+  return curA
 }
