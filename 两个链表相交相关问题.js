@@ -12,7 +12,8 @@
  * 先验证单链表是否有环
  */
 
-function hasRing(head) {
+// hash表
+function hasRingHash(head) {
   let set = new Set()
   while (head && head.next) {
     if (!set.has(head)) {
@@ -22,4 +23,21 @@ function hasRing(head) {
     }
     head = head.next
   }
+  return null
+}
+
+// 快慢指针
+function hasRingPointer (head) {
+  let slowP = head
+  let firstP = head
+
+  while (firstP && firstP.next) { 
+    if (slowP === firstP) {
+      return slowP
+    }
+    slowP = slowP.next
+    firstP = firstP.next.next
+  }
+
+  return null
 }
