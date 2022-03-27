@@ -27,17 +27,35 @@ function hasRingHash(head) {
 }
 
 // 快慢指针
-function hasRingPointer (head) {
+/**
+ * 快指针每次走两步，满指针每次走一步
+ * 如果有环肯定会在环内相遇
+ * 然后快指针回到头结点，快慢指针每次都走一步，
+ * 最后快慢指针会在入环的第一个节点再次相遇
+ */
+function hasRingPointer(head) {
+  let headNode = head
   let slowP = head
   let firstP = head
 
-  while (firstP && firstP.next) { 
+  while (firstP && firstP.next) {
     if (slowP === firstP) {
-      return slowP
+      firstP = headNode
+      break
     }
     slowP = slowP.next
     firstP = firstP.next.next
   }
 
-  return null
+  if (firstP === null) {
+    return null
+  }
+
+  while (firstP && firstP.next) {
+    if (slowP === firstP) {
+      return slowP
+    }
+    slowP = slowP.next
+    firstP = firstP.next
+  }
 }
